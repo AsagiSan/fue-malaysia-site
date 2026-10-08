@@ -80,19 +80,19 @@ async function call(action, body, opt = {}) {
   r = await call('blocks-save', { blocks: [] }); html = await (await fetch(B + '/contact.html')).text(); ok(!html.includes('data-fue-block'), 'extra pictures removed');
 
   // ---- picture details ----
-  r = await call('state'); const aboutSlot = r.j.slots.find((x) => x.key === 'images/about-cube.webp'); ok(aboutSlot && aboutSlot.alt, 'slots carry their current alt text');
-  r = await call('image-meta', { slot: 'images/about-cube.webp', alt: 'Doctor "marking" the scalp', title: 'Treatment room', caption: 'Cap', description: 'Consent on file' }); ok(r.s === 200, 'picture details saved');
+  r = await call('state'); const aboutSlot = r.j.slots.find((x) => x.key === 'images/about-01.webp'); ok(aboutSlot && aboutSlot.alt, 'slots carry their current alt text');
+  r = await call('image-meta', { slot: 'images/about-01.webp', alt: 'Doctor "marking" the scalp', title: 'Treatment room', caption: 'Cap', description: 'Consent on file' }); ok(r.s === 200, 'picture details saved');
   html = await (await fetch(B + '/about-us.html')).text();
-  ok(/<img[^>]*src="images\/about-cube\.webp"[^>]*alt="Doctor &quot;marking&quot; the scalp"/.test(html) || /<img[^>]*alt="Doctor &quot;marking&quot; the scalp"[^>]*about-cube/.test(html), 'new alt text appears on the page (escaped)');
+  ok(/<img[^>]*src="images\/about-01\.webp"[^>]*alt="Doctor &quot;marking&quot; the scalp"/.test(html) || /<img[^>]*alt="Doctor &quot;marking&quot; the scalp"[^>]*about-01/.test(html), 'new alt text appears on the page (escaped)');
   ok(/title="Treatment room"/.test(html), 'title attribute appears on the page');
   r = await call('image-meta', { slot: 'images/nope.webp', alt: 'x' }); ok(r.s === 400, 'unknown picture rejected');
-  r = await call('image-hide', { slot: 'images/about-cube.webp', hidden: true }); ok(r.s === 200, 'picture deleted from website');
+  r = await call('image-hide', { slot: 'images/about-01.webp', hidden: true }); ok(r.s === 200, 'picture deleted from website');
   html = await (await fetch(B + '/about-us.html')).text();
-  ok(/<img[^>]*hidden[^>]*about-cube|<img[^>]*about-cube[^>]*hidden/.test(html) && html.includes('display:none!important'), 'deleted picture is hidden on the page');
-  r = await call('state'); ok(r.j.slots.find((x) => x.key === 'images/about-cube.webp').meta.hidden === true && r.j.slots.find((x) => x.key === 'images/about-cube.webp').meta.alt.startsWith('Doctor'), 'state reports hidden + keeps details');
-  r = await call('image-meta', { slot: 'images/about-cube.webp', alt: 'Doctor again', title: '', caption: '', description: '' }); r = await call('state'); ok(r.j.slots.find((x) => x.key === 'images/about-cube.webp').meta.hidden === true, 'saving details does not un-delete');
-  r = await call('image-hide', { slot: 'images/about-cube.webp', hidden: false }); html = await (await fetch(B + '/about-us.html')).text(); ok(!/<img[^>]*about-cube[^>]*hidden/.test(html) && /alt="Doctor again"/.test(html), 'picture restored to the website');
-  r = await call('image-meta', { slot: 'images/about-cube.webp', alt: '', title: '', caption: '', description: '' });
+  ok(/<img[^>]*hidden[^>]*about-01|<img[^>]*about-01[^>]*hidden/.test(html) && html.includes('display:none!important'), 'deleted picture is hidden on the page');
+  r = await call('state'); ok(r.j.slots.find((x) => x.key === 'images/about-01.webp').meta.hidden === true && r.j.slots.find((x) => x.key === 'images/about-01.webp').meta.alt.startsWith('Doctor'), 'state reports hidden + keeps details');
+  r = await call('image-meta', { slot: 'images/about-01.webp', alt: 'Doctor again', title: '', caption: '', description: '' }); r = await call('state'); ok(r.j.slots.find((x) => x.key === 'images/about-01.webp').meta.hidden === true, 'saving details does not un-delete');
+  r = await call('image-hide', { slot: 'images/about-01.webp', hidden: false }); html = await (await fetch(B + '/about-us.html')).text(); ok(!/<img[^>]*about-01[^>]*hidden/.test(html) && /alt="Doctor again"/.test(html), 'picture restored to the website');
+  r = await call('image-meta', { slot: 'images/about-01.webp', alt: '', title: '', caption: '', description: '' });
   // team
   r = await call('user-create', { name: 'Dr Inder', email: 'inder@x.com', role: 'owner' }); ok(r.s === 200 && r.j.tempPassword, 'owner creates login');
   const tmp = r.j.tempPassword;

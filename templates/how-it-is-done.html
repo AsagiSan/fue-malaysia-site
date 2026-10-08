@@ -609,7 +609,7 @@ footer .bottom{display:flex;justify-content:space-between;padding-top:26px;font-
 .trio .card .media.duo{display:grid;grid-template-columns:1fr 1fr;gap:4px}
 .trio .card .media.duo img{object-fit:cover;padding:0}
 
-/* ===== CTA: floating cube, live form, neon buttons, legal + credit ===== */
+/* ===== CTA: live form, neon buttons, legal + credit ===== */
 @property --na{syntax:'<angle>';inherits:false;initial-value:0deg}
 @keyframes neonspin{to{--na:360deg}}
 .neon{position:relative;isolation:isolate}
@@ -628,26 +628,6 @@ footer .bottom{display:flex;justify-content:space-between;padding-top:26px;font-
 
 /* consultation card */
 .cta-sec .media{display:flex;flex-direction:column;justify-content:center}
-.cube-stage{position:relative;width:100%;aspect-ratio:1/1.16;perspective:1500px;container-type:inline-size;cursor:grab}
-.cube-glow{position:absolute;left:50%;top:48%;width:78cqw;height:78cqw;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(20,20,20,.07),transparent 72%);animation:cubeGlow 11s ease-in-out infinite alternate}
-.cube{position:absolute;left:50%;top:49%;width:0;height:0;transform-style:preserve-3d;animation:cubeFloat 11s ease-in-out infinite alternate;will-change:transform}
-.cube .f{position:absolute;margin:0;overflow:hidden;background:#d9d7d1;backface-visibility:hidden;outline:1px solid rgba(20,20,20,.1)}
-.cube .f img{width:100%;height:100%;object-fit:cover;display:block}
-.cube .f::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.16),rgba(0,0,0,.12));pointer-events:none}
-.cube .front{--w:64cqw;--h:80cqw;width:64cqw;height:80cqw;left:-32cqw;top:-40cqw;transform:translateZ(14cqw)}
-.cube .back{width:64cqw;height:80cqw;left:-32cqw;top:-40cqw;transform:rotateY(180deg) translateZ(14cqw)}
-.cube .right{width:28cqw;height:80cqw;left:-14cqw;top:-40cqw;transform:rotateY(90deg) translateZ(32cqw);filter:brightness(.86)}
-.cube .left{width:28cqw;height:80cqw;left:-14cqw;top:-40cqw;transform:rotateY(-90deg) translateZ(32cqw);filter:brightness(.86)}
-.cube .top{width:64cqw;height:28cqw;left:-32cqw;top:-14cqw;transform:rotateX(90deg) translateZ(40cqw);filter:brightness(1.05)}
-.cube .bottom{width:64cqw;height:28cqw;left:-32cqw;top:-14cqw;transform:rotateX(-90deg) translateZ(40cqw);filter:brightness(.7)}
-.cube-shadow{position:absolute;left:50%;bottom:2%;width:56cqw;height:7cqw;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(0,0,0,.3),transparent);filter:blur(7px);animation:cubeShadow 11s ease-in-out infinite alternate}
-@keyframes cubeFloat{
-  0%{transform:translate3d(0,0,0) rotateX(calc(-7deg + var(--cx,0deg))) rotateY(calc(-32deg + var(--cy,0deg)))}
-  50%{transform:translate3d(0,-2.6cqw,0) rotateX(calc(4deg + var(--cx,0deg))) rotateY(calc(8deg + var(--cy,0deg)))}
-  100%{transform:translate3d(0,0,0) rotateX(calc(-5deg + var(--cx,0deg))) rotateY(calc(34deg + var(--cy,0deg)))}}
-@keyframes cubeShadow{0%{transform:translateX(-50%) scale(1);opacity:.9}50%{transform:translateX(-50%) scale(.8);opacity:.6}100%{transform:translateX(-50%) scale(1);opacity:.9}}
-@keyframes cubeGlow{from{transform:translate(-50%,-50%) scale(.92)}to{transform:translate(-50%,-50%) scale(1.06)}}
-.cube-stage.paused *{animation-play-state:paused!important}
 .cta-sec .media .avatar-row{position:relative}
 .cta-sec .avatar-row img{position:relative}
 .cta-sec .avatar-row .dot-live{position:absolute;left:36px;top:34px;width:12px;height:12px;border-radius:50%;background:#3ccf6e;border:2px solid var(--surface)}
@@ -679,7 +659,6 @@ footer .powered a b{font-weight:500;color:rgba(237,235,230,.9);letter-spacing:.2
 footer .powered a:hover{color:#fff}
 @media (max-width:820px){
   .cta-sec .media{margin-bottom:34px}
-  .cube-stage{max-width:520px;margin:0 auto}
   footer .bottom .legal{gap:18px}
 }
 @media (max-width:560px){
@@ -687,32 +666,10 @@ footer .powered a:hover{color:#fff}
   .cta-sec .field.half{grid-column:1/-1}
 }
 @media (prefers-reduced-motion:reduce){
-  .cube{animation:none;transform:rotateX(-4deg) rotateY(-20deg)}
-  .cube-shadow,.cube-glow{animation:none}
   .neon::before,.neon::after{animation-duration:3s}
 }
 
-/* ===== v3: true cube (equal square faces, one photo), WhatsApp float with waves, powered-by logo ===== */
-.cube-stage{aspect-ratio:1/1.1}
-.cube .f{width:60cqw;height:60cqw;left:-30cqw;top:-30cqw;outline:1px solid rgba(20,20,20,.12)}
-.cube .front{width:60cqw;height:60cqw;left:-30cqw;top:-30cqw;transform:translateZ(30cqw)}
-.cube .back{width:60cqw;height:60cqw;left:-30cqw;top:-30cqw;transform:rotateY(180deg) translateZ(30cqw)}
-.cube .right{width:60cqw;height:60cqw;left:-30cqw;top:-30cqw;transform:rotateY(90deg) translateZ(30cqw);filter:none}
-.cube .left{width:60cqw;height:60cqw;left:-30cqw;top:-30cqw;transform:rotateY(-90deg) translateZ(30cqw);filter:none}
-.cube .top{width:60cqw;height:60cqw;left:-30cqw;top:-30cqw;transform:rotateX(90deg) translateZ(30cqw);filter:none}
-.cube .bottom{width:60cqw;height:60cqw;left:-30cqw;top:-30cqw;transform:rotateX(-90deg) translateZ(30cqw);filter:none}
-.cube .f:not(.front){background:linear-gradient(150deg,#f6f5f1 0%,#dedcd5 55%,#c9c7bf 100%)}
-.cube .right{background:linear-gradient(90deg,#e9e7e1,#cfcdc5)}
-.cube .left{background:linear-gradient(270deg,#e9e7e1,#cfcdc5)}
-.cube .top{background:linear-gradient(180deg,#fbfaf7,#e6e4de)}
-.cube .bottom{background:linear-gradient(180deg,#bdbbb3,#a9a79f)}
-.cube .f:not(.front)::after{background:linear-gradient(135deg,rgba(255,255,255,.35),rgba(0,0,0,.05))}
-.cube .front{box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
-@keyframes cubeFloat{
-  0%{transform:translate3d(0,0,0) rotateX(calc(-6deg + var(--cx,0deg))) rotateY(calc(-14deg + var(--cy,0deg)))}
-  50%{transform:translate3d(0,-2.8cqw,0) rotateX(calc(3deg + var(--cx,0deg))) rotateY(calc(4deg + var(--cy,0deg)))}
-  100%{transform:translate3d(0,0,0) rotateX(calc(-4deg + var(--cx,0deg))) rotateY(calc(15deg + var(--cy,0deg)))}}
-.cube-shadow{width:46cqw}
+/* ===== v3: WhatsApp float with waves, powered-by logo ===== */
 
 /* WhatsApp: floating black logo over little moving waves */
 .wa-float{background:none!important;box-shadow:none!important;width:54px;height:54px;display:block;border-radius:0;transition:transform .6s var(--ease)}
@@ -735,30 +692,11 @@ footer .powered .pw-logo{width:20px;height:20px;color:#8fe6ff;filter:drop-shadow
 @keyframes pwGlow{from{filter:drop-shadow(0 0 2px rgba(120,225,255,.8)) drop-shadow(0 0 6px rgba(90,205,255,.45))}to{filter:drop-shadow(0 0 4px rgba(150,235,255,1)) drop-shadow(0 0 13px rgba(90,205,255,.8))}}
 
 /* ===== v4: one photo on all six equal faces, rotating left > front > right > middle ===== */
-@keyframes cubeFloat{
-  0%{transform:translate3d(0,0,0) rotateX(calc(-15deg + var(--cx,0deg))) rotateY(calc(-42deg + var(--cy,0deg)))}
-  25%{transform:translate3d(0,-2.8cqw,0) rotateX(calc(-13deg + var(--cx,0deg))) rotateY(calc(-14deg + var(--cy,0deg)))}
-  50%{transform:translate3d(0,0,0) rotateX(calc(-15deg + var(--cx,0deg))) rotateY(calc(42deg + var(--cy,0deg)))}
-  75%{transform:translate3d(0,-2.8cqw,0) rotateX(calc(-13deg + var(--cx,0deg))) rotateY(calc(14deg + var(--cy,0deg)))}
-  100%{transform:translate3d(0,0,0) rotateX(calc(-15deg + var(--cx,0deg))) rotateY(calc(-42deg + var(--cy,0deg)))}}
-.cube .f::after{content:"";position:absolute;inset:0;pointer-events:none}
-.cube .front::after{background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(0,0,0,.05))}
-.cube .right::after{background:rgba(0,0,0,.2)}
-.cube .left::after{background:rgba(0,0,0,.32)}
-.cube .top::after{background:rgba(255,255,255,.22)}
-.cube .bottom::after{background:rgba(0,0,0,.5)}
-.cube .back::after{background:rgba(0,0,0,.38)}
-.cube{animation:cubeFloat 18s ease-in-out infinite}
-.cube .f{background:#d9d7d1}
-.cube .f img{object-fit:cover}
 
 .hero-meta{padding-right:104px}
 @media (max-width:820px){.hero-meta{padding-right:0}}
 
-/* ===== v5 cube full image, no top image, real favicon */
-.cube .f img{object-position:center!important}
-.cube .top img,.cube .bottom img{display:none}
-.cube .top,.cube .bottom{background:#ecebe7}
+/* ===== v5 real favicon */
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"MedicalClinic","name":"FUE Malaysia","url":"https://www.fuemalaysia.com/","telephone":"+60 12-558 8572","email":"fue.malaysia@gmail.com","description":"Hair transplant clinic in Malaysia specialising in FUE hair transplant and hair loss treatment.","address":{"@type":"PostalAddress","streetAddress":"Level 33 Ilham Tower, No 8, Jalan Binjai","postalCode":"50450","addressLocality":"Kuala Lumpur","addressCountry":"MY"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"09:00","closes":"18:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"09:00","closes":"14:00"}],"priceRange":"RM 7,500 – RM 20,000"}
@@ -961,18 +899,6 @@ footer .powered .pw-logo{width:20px;height:20px;color:#8fe6ff;filter:drop-shadow
 
 <section class="consult cta-sec" id="cta" aria-labelledby="cta-h">
   <div class="media">
-    <div class="cube-stage rv" data-cube aria-label="Floating photo cube of the FUE Malaysia clinic">
-      <div class="cube-glow"></div>
-      <div class="cube">
-        <figure class="f front"><img src="images/about-cube.webp" alt="FUE Malaysia doctor preparing a patient for a hair transplant" width="581" height="581"></figure>
-        <figure class="f right"><img loading="lazy" src="images/about-cube.webp" alt="" width="581" height="581"></figure>
-        <figure class="f back"><img loading="lazy" src="images/about-cube.webp" alt="" width="581" height="581"></figure>
-        <figure class="f left"><img loading="lazy" src="images/about-cube.webp" alt="" width="581" height="581"></figure>
-        <figure class="f top"><img loading="lazy" src="images/about-cube.webp" alt="" width="581" height="581"></figure>
-        <figure class="f bottom"><img loading="lazy" src="images/about-cube.webp" alt="" width="581" height="581"></figure>
-      </div>
-      <div class="cube-shadow"></div>
-    </div>
     <div class="avatar-row rv" style="display:flex;align-items:center;gap:16px;margin-top:22px">
       <img src="images/appointment.webp" alt="FUE Malaysia patient coordinator" width="48" height="48" style="width:48px;height:48px;border-radius:50%;object-fit:cover;filter:saturate(.7)"><i class="dot-live" aria-hidden="true"></i>
       <p style="font-size:13px;color:var(--ink-2)">We respond to 95% of messages within 1 business day.<br>Mon–Fri 9:00–18:00 · Sat 9:00–14:00</p>
@@ -1430,27 +1356,15 @@ function liteCloud(host, keys, urls) {
 
 </script>
 <script>
-/* floating cube: pointer-driven 3D tilt on top of the float, paused while off-screen */
+/* reveal the consultation section when it scrolls into view */
 (function(){
-  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var secs=document.querySelectorAll('.cta-sec');
   if('IntersectionObserver' in window){
     var io=new IntersectionObserver(function(es){es.forEach(function(e){
       if(e.isIntersecting) e.target.classList.add('live');
-      var st=e.target.querySelector('[data-cube]'); if(st) st.classList.toggle('paused',!e.isIntersecting);
     });},{threshold:.12});
     secs.forEach(function(s){io.observe(s);});
   } else secs.forEach(function(s){s.classList.add('live');});
-  if(reduce) return;
-  document.querySelectorAll('[data-cube]').forEach(function(st){
-    var cube=st.querySelector('.cube'),tx=0,ty=0,cx=0,cy=0,raf=0;
-    function step(){cx+=(tx-cx)*.09;cy+=(ty-cy)*.09;cube.style.setProperty('--cx',cx.toFixed(2)+'deg');cube.style.setProperty('--cy',cy.toFixed(2)+'deg');
-      raf=(Math.abs(tx-cx)>.04||Math.abs(ty-cy)>.04)?requestAnimationFrame(step):0;}
-    function kick(){if(!raf)raf=requestAnimationFrame(step);}
-    function aim(e){var r=st.getBoundingClientRect();ty=((e.clientX-r.left)/r.width-.5)*40;tx=-((e.clientY-r.top)/r.height-.5)*24;kick();}
-    st.addEventListener('pointermove',aim);st.addEventListener('pointerdown',aim);
-    ['pointerleave','pointerup','pointercancel'].forEach(function(t){st.addEventListener(t,function(){tx=ty=0;kick();});});
-  });
 })();
 </script>
 </body>
