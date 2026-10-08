@@ -339,6 +339,7 @@ footer .bottom{display:flex;justify-content:space-between;padding-top:26px;font-
 .chap-side .lede{max-width:40ch}
 .chap-body{grid-column:6/13;min-width:0}
 .chap.full .chap-body{grid-column:1/-1}
+.chap.full .chap-side{grid-column:1/-1;position:static;margin-bottom:46px}
 .prose p{color:var(--ink-2);margin-bottom:18px;max-width:64ch;font-size:16px}
 .prose p:first-child::first-letter{font-family:var(--serif);font-size:3.4em;float:left;line-height:.8;margin:.08em .1em 0 0;color:var(--ink)}
 .pull{font-family:var(--serif);font-size:clamp(28px,3vw,44px);line-height:1.12;margin:40px 0;padding:34px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--line);text-wrap:balance}
@@ -768,6 +769,13 @@ footer .powered a{display:inline-flex;align-items:center;gap:11px}
 footer .powered .pw-logo{width:20px;height:20px;color:#8fe6ff;filter:drop-shadow(0 0 3px rgba(120,225,255,.95)) drop-shadow(0 0 9px rgba(90,205,255,.65));animation:pwGlow 3.2s ease-in-out infinite alternate;flex:none}
 @keyframes pwGlow{from{filter:drop-shadow(0 0 2px rgba(120,225,255,.8)) drop-shadow(0 0 6px rgba(90,205,255,.45))}to{filter:drop-shadow(0 0 4px rgba(150,235,255,1)) drop-shadow(0 0 13px rgba(90,205,255,.8))}}
 </style>
+<script>/* always open pages at the very top (no restored scroll position), unless the link points at a #section */
+(function(){var touched=false;try{if('scrollRestoration' in history)history.scrollRestoration='manual';}catch(e){}
+['wheel','touchstart','keydown','mousedown'].forEach(function(t){addEventListener(t,function(){touched=true;},{passive:true,once:true});});
+function top(){if(!touched&&!location.hash)scrollTo(0,0);}
+top();addEventListener('DOMContentLoaded',top);
+addEventListener('load',function(){top();setTimeout(top,80);});
+addEventListener('pageshow',function(e){if(!e.persisted)top();});})();</script>
 <script>document.documentElement.classList.remove('no-js')</script>
 </head>
 <body>
@@ -780,7 +788,7 @@ footer .powered .pw-logo{width:20px;height:20px;color:#8fe6ff;filter:drop-shadow
   </nav>
   <a class="logo" href="index.html" aria-label="FUE Malaysia home"><img src="images/logo.webp" alt="FUE Malaysia" width="667" height="266"></a>
   <div class="right">
-    <a class="cta neon" href="contact.html#form">Free Consultation</a>
+    <a class="cta neon" href="contact.html">Free Consultation</a>
   </div>
 </header>
 <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
@@ -845,7 +853,7 @@ function initSite() {
   let lenis = null;
   if (!reduced && window.Lenis) {
     lenis = new window.Lenis({ duration: 1.25, easing: t => 1 - Math.pow(1 - t, 4), smoothWheel: true });
-    lenis.on('scroll', ScrollTrigger.update);
+    window.__lenis = lenis; lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add(t => lenis.raf(t * 1000));
     gsap.ticker.lagSmoothing(0);
   }
@@ -1029,6 +1037,25 @@ initSite();
     function aim(e){var r=st.getBoundingClientRect();ty=((e.clientX-r.left)/r.width-.5)*40;tx=-((e.clientY-r.top)/r.height-.5)*24;kick();}
     st.addEventListener('pointermove',aim);st.addEventListener('pointerdown',aim);
     ['pointerleave','pointerup','pointercancel'].forEach(function(t){st.addEventListener(t,function(){tx=ty=0;kick();});});
+  });
+})();
+</script>
+<script>
+/* menu and footer links: same page = smooth scroll to the top; other page = open it at the top */
+(function(){
+  function name(u){var f=u.pathname.replace(/\/+$/,'').split('/').pop()||'index';return f.replace(/\.html$/,'');}
+  function toTop(){var l=window.__lenis,r=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(l&&!r)l.scrollTo(0,{duration:1.4});else window.scrollTo({top:0,behavior:r?'auto':'smooth'});}
+  document.addEventListener('click',function(e){
+    if(e.defaultPrevented||e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
+    var a=e.target.closest&&e.target.closest('header.nav a,.mobile-menu a,footer a');
+    if(!a||(a.target&&a.target!=='_self')||a.hasAttribute('download'))return;
+    var u;try{u=new URL(a.href,location.href);}catch(x){return;}
+    if(u.origin!==location.origin||u.hash||!/^https?:$/.test(u.protocol))return;
+    if(name(u)!==name(location))return;
+    e.preventDefault();
+    if(document.body.classList.contains('menu-open')){var bu=document.getElementById('burger');if(bu)bu.click();}
+    toTop();
   });
 })();
 </script>

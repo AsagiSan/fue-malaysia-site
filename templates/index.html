@@ -340,6 +340,7 @@ footer .bottom{display:flex;justify-content:space-between;padding-top:26px;font-
 .chap-side .lede{max-width:40ch}
 .chap-body{grid-column:6/13;min-width:0}
 .chap.full .chap-body{grid-column:1/-1}
+.chap.full .chap-side{grid-column:1/-1;position:static;margin-bottom:46px}
 .prose p{color:var(--ink-2);margin-bottom:18px;max-width:64ch;font-size:16px}
 .prose p:first-child::first-letter{font-family:var(--serif);font-size:3.4em;float:left;line-height:.8;margin:.08em .1em 0 0;color:var(--ink)}
 .pull{font-family:var(--serif);font-size:clamp(28px,3vw,44px);line-height:1.12;margin:40px 0;padding:34px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--line);text-wrap:balance}
@@ -760,6 +761,13 @@ footer .powered .pw-logo{width:20px;height:20px;color:#8fe6ff;filter:drop-shadow
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"MedicalClinic","name":"FUE Malaysia","url":"https://www.fuemalaysia.com/","telephone":"+60 12-558 8572","email":"fue.malaysia@gmail.com","description":"Hair transplant clinic in Malaysia specialising in FUE hair transplant and hair loss treatment.","address":{"@type":"PostalAddress","streetAddress":"Level 33 Ilham Tower, No 8, Jalan Binjai","postalCode":"50450","addressLocality":"Kuala Lumpur","addressCountry":"MY"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"09:00","closes":"18:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"09:00","closes":"14:00"}],"priceRange":"RM 7,500 – RM 20,000"}
 </script>
+<script>/* always open pages at the very top (no restored scroll position), unless the link points at a #section */
+(function(){var touched=false;try{if('scrollRestoration' in history)history.scrollRestoration='manual';}catch(e){}
+['wheel','touchstart','keydown','mousedown'].forEach(function(t){addEventListener(t,function(){touched=true;},{passive:true,once:true});});
+function top(){if(!touched&&!location.hash)scrollTo(0,0);}
+top();addEventListener('DOMContentLoaded',top);
+addEventListener('load',function(){top();setTimeout(top,80);});
+addEventListener('pageshow',function(e){if(!e.persisted)top();});})();</script>
 <script>document.documentElement.classList.remove('no-js');(function(){var d=document.documentElement;try{if(scrollY<40)d.classList.add('hero-top');if(!matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('hero-seq');setTimeout(function(){if(!window.__heroSeq)d.classList.remove('hero-seq')},7000)}}catch(e){}})()</script>
 
 
@@ -772,7 +780,7 @@ footer .powered .pw-logo{width:20px;height:20px;color:#8fe6ff;filter:drop-shadow
   </nav>
   <a class="logo" href="index.html" aria-label="FUE Malaysia home"><img src="images/logo.webp" alt="FUE Malaysia" width="667" height="266"></a>
   <div class="right">
-    <a class="cta neon" href="#cta">Free Consultation</a>
+    <a class="cta neon" href="contact.html">Free Consultation</a>
   </div>
 </header>
 <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
@@ -870,7 +878,7 @@ footer .powered .pw-logo{width:20px;height:20px;color:#8fe6ff;filter:drop-shadow
     <div style="grid-column:2/7;align-self:center;grid-row:1">
       <p class="label rv">(04) &nbsp; Hair Transplant Malaysia</p>
       <h2 class="h-l rv" id="loss-h" style="margin:22px 0 28px">Hair loss <span class="it">treatment.</span></h2>
-      <p class="lede rv">Hair loss treatment is a medical or cosmetic procedure designed to address hair loss or thinning hair, also known as alopecia.</p>
+      <p class="lede rv">Hair loss treatment covers the medical and cosmetic options used to slow, stop or reverse hair loss and thinning hair (alopecia). Depending on the cause and stage, this can include medication such as minoxidil or finasteride, scalp and laser therapies, PRP (platelet-rich plasma), and, for permanent hair loss, a hair transplant. A doctor first diagnoses the cause of your hair loss and recommends the right treatment for you.</p>
       <a class="btn rv" style="margin-top:36px" href="fue-candidate.html">Are you a candidate? <span class="arr"></span></a>
     </div>
     <div class="photo rv" style="grid-column:8/13;aspect-ratio:4/5;grid-row:1"><img loading="lazy" src="images/hairloss.webp" alt="FUE Malaysia doctor examining a female patient’s scalp" width="607" height="607"></div>
@@ -1024,7 +1032,7 @@ function initSite() {
   let lenis = null;
   if (!reduced && window.Lenis) {
     lenis = new window.Lenis({ duration: 1.6, easing: t => 1 - Math.pow(1 - t, 4), smoothWheel: true, wheelMultiplier: .9 });
-    lenis.on('scroll', ScrollTrigger.update);
+    window.__lenis = lenis; lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add(t => lenis.raf(t * 1000));
     gsap.ticker.lagSmoothing(0);
   }
@@ -1241,12 +1249,12 @@ const STEPS = [
 
 // v3: the grey "x" lines under each benefit were not on fuemalaysia.com and were cleared (content-fidelity pass). Render skips empty x.
 const BENEFITS = [
-  { icon: 'frame',       t: 'Unnoticeable scar',       d: 'There are no stitches, so the donor area heals within days.', x: '' },
-  { icon: 'icon-tech',   t: 'Fast recovery',           d: 'The results are natural-looking and permanent.', x: '' },
-  { icon: 'face',        t: 'High success rate',       d: 'It is a solution for incipient and advanced hair loss.', x: '' },
-  { icon: 'fue',         t: 'Using the latest technology', d: 'Free consultation with our trusted doctors, and the best recommendations.', x: '' },
-  { icon: 'therapy',     t: 'The donor area looks unaffected', d: 'Less pain during and after the operation.', x: '' },
-  { icon: 'restoration', t: 'No pain during treatment', d: 'It’s a state-of-the-art, minimally invasive technique.', x: '' },
+  { icon: 'frame',       t: 'No stitches, minimal scarring', d: 'FUE needs no stitches. Each follicle is taken through a tiny round opening, under 1 mm, that heals within a few days and leaves only small dot-like marks, which are easily hidden by surrounding hair.', x: '' },
+  { icon: 'icon-tech',   t: 'Natural, gradual results', d: 'Most patients return to normal daily activities within a few days. Transplanted hair usually sheds in the first weeks, new growth starts at around 3 to 4 months, and the fuller, thicker result appears between 6 and 12 months.', x: '' },
+  { icon: 'face',        t: 'High success rate', d: 'A proven solution for both early and advanced hair loss, with transplanted follicles that continue to grow naturally for life.', x: '' },
+  { icon: 'fue',         t: 'Using the latest technology', d: 'Advanced instruments and high-powered microscopes help protect every graft, and every patient starts with a free consultation with our trusted doctors.', x: '' },
+  { icon: 'therapy',     t: 'A carefully protected donor area', d: 'Follicles are taken evenly across the donor area, so it isn’t left with visible patches. The area may look slightly red or thinner at first, but it heals within days and the remaining hair covers it.', x: '' },
+  { icon: 'restoration', t: 'Minimal, manageable pain', d: 'The procedure is done under local anaesthesia, so most patients feel only mild, very bearable discomfort during and after treatment, mainly from the anaesthetic injections.', x: '' },
 ];
 const TRUST = [['icon-legal','Legal guarantees'],['icon-international','International patients'],['icon-safe','100% safe'],['icon-quality','High quality']];
 
@@ -2223,6 +2231,25 @@ function startHeroLite() {
     });},{threshold:.12});
     secs.forEach(function(s){io.observe(s);});
   } else secs.forEach(function(s){s.classList.add('live');});
+})();
+</script>
+<script>
+/* menu and footer links: same page = smooth scroll to the top; other page = open it at the top */
+(function(){
+  function name(u){var f=u.pathname.replace(/\/+$/,'').split('/').pop()||'index';return f.replace(/\.html$/,'');}
+  function toTop(){var l=window.__lenis,r=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(l&&!r)l.scrollTo(0,{duration:1.4});else window.scrollTo({top:0,behavior:r?'auto':'smooth'});}
+  document.addEventListener('click',function(e){
+    if(e.defaultPrevented||e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
+    var a=e.target.closest&&e.target.closest('header.nav a,.mobile-menu a,footer a');
+    if(!a||(a.target&&a.target!=='_self')||a.hasAttribute('download'))return;
+    var u;try{u=new URL(a.href,location.href);}catch(x){return;}
+    if(u.origin!==location.origin||u.hash||!/^https?:$/.test(u.protocol))return;
+    if(name(u)!==name(location))return;
+    e.preventDefault();
+    if(document.body.classList.contains('menu-open')){var bu=document.getElementById('burger');if(bu)bu.click();}
+    toTop();
+  });
 })();
 </script>
 </body></html>
