@@ -1,0 +1,7 @@
+{
+  "_readme": "Option B: works with no database. Anything set here is used by the public pages. Values saved from the admin panel take priority over this file. 'pages' keys: index, how-it-is-done, about-us, fue-candidate, fue-results, contact, privacy, terms; each can set title, description, canonical, ogTitle, ogDescription, ogImage, robots ('noindex' or ''), schema (JSON as a string). 'images' maps a built-in picture path to a replacement: { \"images/about.webp\": { \"url\": \"/images/my-new-photo.webp\" } }. 'tracking.head' / 'tracking.body' hold Google tags.",
+  "siteUrl": "",
+  "pages": {},
+  "images": {},
+  "tracking": { "head": "", "body": "" }
+}

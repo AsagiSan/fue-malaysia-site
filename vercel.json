@@ -1,0 +1,37 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "outputDirectory": "public",
+  "cleanUrls": false,
+  "functions": {
+    "api/page.js": { "includeFiles": "{templates/**,content.config.json}" },
+    "api/admin/[action].js": { "includeFiles": "{templates/**,content.config.json}" }
+  },
+  "rewrites": [
+    { "source": "/", "destination": "/api/page?p=index" },
+    { "source": "/:p(index|how-it-is-done|about-us|fue-candidate|fue-results|contact|privacy|terms).html", "destination": "/api/page?p=:p" },
+    { "source": "/:p(how-it-is-done|about-us|fue-candidate|fue-results|contact|privacy|terms)", "destination": "/api/page?p=:p" },
+    { "source": "/admin", "destination": "/admin/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+      ]
+    },
+    {
+      "source": "/admin/(.*)",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" },
+        { "key": "Cache-Control", "value": "no-store" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "Content-Security-Policy", "value": "default-src 'self'; img-src 'self' data: blob: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'" }
+      ]
+    },
+    {
+      "source": "/api/admin/(.*)",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }]
+    }
+  ]
+}

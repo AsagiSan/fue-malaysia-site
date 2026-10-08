@@ -1,0 +1,12 @@
+{
+  "name": "fue-malaysia-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "FUE Malaysia website with a private admin panel (images, SEO, schema, tracking codes). Static pages rendered by a Vercel function.",
+  "scripts": {
+    "dev": "LOCAL_DEV=1 node dev-server.js",
+    "test": "LOCAL_DEV=1 node scripts/test.js"
+  },
+  "engines": { "node": ">=20" },
+  "dependencies": { "@vercel/blob": "^0.27.0" }
+}
